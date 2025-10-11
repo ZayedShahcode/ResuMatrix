@@ -16,10 +16,10 @@ const compileLatexLocally = (latexCode) => {
     if (!fs.existsSync(TEMP_DIR)) fs.mkdirSync(TEMP_DIR, { recursive: true });
 
     // Write LaTeX code to .tex file
-    fs.writeFileSync(texFile, latexCode, "utf8");
+    fs.writeFileSync(texFile, latexCode);
 
     // Compile using MikTeX (pdflatex)
-    exec(`pdflatex -output-directory=${TEMP_DIR} ${texFile}`, (error, stdout, stderr) => {
+    exec(`pdflatex -interaction=nonstopmode -output-directory=${TEMP_DIR} ${texFile}`, (error, stdout, stderr) => {
       if (error) return reject(error);
 
       if (!fs.existsSync(pdfFile)) {
@@ -46,8 +46,9 @@ export const compileCode = async (req, res, next) => {
     }
 
     const pdfBuffer = await compileLatexLocally(latexCode);
+    res.contentType("application/pdf");
 
-    res.status(200).json({ result: pdfBuffer.toString("base64") }); // Send PDF as base64
+    res.status(200).send(pdfBuffer); 
   } catch (err) {
     next(err);
   }
