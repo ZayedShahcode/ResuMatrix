@@ -1,8 +1,7 @@
-const express = require('express');
+import express from "express";
+import { optimizeCode } from "../controllers/optimizeController.js";
+
 const router = express.Router();
-const { optimizeCode } = require('../controllers/optimizeController');
+router.post("/", optimizeCode);
 
-// POST /api/optimize
-router.post('/', optimizeCode);
-
-module.exports = router;
+export default router;

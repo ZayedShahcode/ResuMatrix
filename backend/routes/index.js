@@ -1,10 +1,10 @@
-const express = require('express');
+import express from "express";
+import compileRoutes from "./compileRoutes.js";
+import optimizeRoutes from "./optimizeRoutes.js";
+
 const router = express.Router();
 
-const compileRoutes = require('./compileRoutes');
-const optimizeRoutes = require('./optimizeRoutes');
+router.use("/compile", compileRoutes);
+router.use("/optimize", optimizeRoutes);
 
-router.use('/compile', compileRoutes);
-router.use('/optimize', optimizeRoutes);
-
-module.exports = router;
+export default router;
