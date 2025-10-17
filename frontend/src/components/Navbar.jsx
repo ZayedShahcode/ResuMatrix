@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Home from '../pages/Home';
-import About from '../pages/About';
 
 function Navbar() {
   const navStyle = {
@@ -9,27 +7,42 @@ function Navbar() {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '15px 30px',
-    backgroundColor: '#333',
+    backgroundColor: 'black',
     color: 'white',
-    width:"100%"
+    width: '100%'
   };
+
   const linkStyle = {
     color: 'white',
     textDecoration: 'none',
     margin: '0 15px',
     fontWeight: 'bold',
   };
+
+  const ulStyle = {
+    display: 'flex',
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
+    gap: '20px'
+  };
+
+  const liStyle = {
+    margin: 0,
+    padding: 0
+  };
+
   return (
-    <nav style ={{navStyle}}>
+    <nav style={navStyle}>
       <div style={{ fontSize: '1.8em' }}>
         <Link to="/" style={linkStyle}>ResuMatrix</Link>
       </div>
-      <ul>
-        <li>
-          <Link to='/' >Home</Link>
+      <ul style={ulStyle}>
+        <li style={liStyle}>
+          <Link to='/' style={linkStyle}>Home</Link>
         </li>
-        <li>
-          <Link to='/About'>About</Link>
+        <li style={liStyle}>
+          <Link to='/About' style={linkStyle}>About</Link>
         </li>
       </ul>
     </nav>
