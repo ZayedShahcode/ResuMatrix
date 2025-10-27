@@ -8,7 +8,7 @@ function extractKeywords(text) {
 
     return tfidf
         .listTerms(0)
-        .filter((item) => item.term.length > 2) // Filter out short terms
+        .filter((item) => item.term.length > 1) // Keep 2+ char terms (AI, ML, AWS, API, etc.)
         .slice(0, 10) // Get top 10 keywords
         .map((item) => item.term);
 }
