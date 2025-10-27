@@ -10,7 +10,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { calculateATSScore } from "./utils/atsScoring.js";
 
 // Import middleware
-import { validateCompile, validateOptimize } from "./middleware/validation.js";
+import { validateCompile, validateOptimize, validateATSScore } from "./middleware/validation.js";
 import {
     compileRateLimiter,
     optimizeRateLimiter,
@@ -160,22 +160,11 @@ ${resumeLatex}
 app.post(
     "/api/ats-score",
     generalRateLimiter,
+    validateATSScore,
     asyncHandler(async (req, res) => {
         try {
             console.log("Received ATS score request:", req.body);
             const { resumeText, jobDescription } = req.body;
-
-            if (!resumeText || !jobDescription) {
-                console.error("Missing required fields:", {
-                    hasResumeText: !!resumeText,
-                    hasJobDescription: !!jobDescription,
-                });
-                return res.status(400).json({
-                    success: false,
-                    message:
-                        "Both resume text and job description are required",
-                });
-            }
 
             console.log("Calculating ATS score...");
             const result = calculateATSScore(resumeText, jobDescription);

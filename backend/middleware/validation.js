@@ -71,3 +71,22 @@ export const validateOptimize = [
   
   handleValidationErrors
 ];
+
+/**
+ * Validation rules for /api/ats-score endpoint
+ */
+export const validateATSScore = [
+  body('resumeText')
+    .exists().withMessage('Resume text is required')
+    .isString().withMessage('Resume text must be a string')
+    .notEmpty().withMessage('Resume text cannot be empty')
+    .isLength({ min: 1, max: 50000 }).withMessage('Resume text must be between 1 and 50000 characters'),
+  
+  body('jobDescription')
+    .exists().withMessage('Job description is required')
+    .isString().withMessage('Job description must be a string')
+    .notEmpty().withMessage('Job description cannot be empty')
+    .isLength({ min: 10, max: 10000 }).withMessage('Job description must be between 10 and 10000 characters'),
+  
+  handleValidationErrors
+];
